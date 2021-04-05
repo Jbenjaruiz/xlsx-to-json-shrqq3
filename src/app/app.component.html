@@ -1,0 +1,42 @@
+<h4>{{name}}</h4>
+<p>
+  Favor seleccionar el archivo a convertir
+</p>
+
+<input type="file" (change)="onFileChange($event)" />
+
+<!-- <div id="output"></div> -->
+<br>
+<!-- <div *ngIf="willDownload">
+  <a id="download"> Download JSON File </a>
+</div> -->
+<div class="row">
+  <select (change)="generarCalculo()" [(ngModel)]='placa' class="form-control col-4" id="">
+  <option *ngFor="let node of camiones"  [value]="node">{{node}}</option>
+ </select>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Galonaje</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Placa</th>
+      <th scope="col">Kilometraje</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let node of listado; let i = index">
+      <th>{{i}}</th>
+      <td>{{node.GALONAJE}}</td>
+      <td>{{node.FECHA}}</td>
+      <td>{{node.PLACA}}</td>
+      <td>{{node.KILOMETRAJE}}</td>
+      <td>{{node.PRECIO}}</td>
+      <td>{{node[' TOTAL ']}}</td>
+    </tr>
+  </tbody>
+</table>
