@@ -10,10 +10,12 @@ export class AppComponent {
   name = "Este es el convertidor XLSX TO JSON ";
   willDownload = false;
   listado: any[] = [];
+  allItems: any[] = [];
   calculoCamion: any[] = [];
   cargasXCamion: any[] = [];
   camiones: any[] = [];
   placa: String;
+  totalKms: String = "0 Kms recorridos ";
   constructor() {}
 
   onFileChange(ev) {
@@ -31,6 +33,7 @@ export class AppComponent {
       }, {});
       console.log("primer objeto", jsonData["Fac. Enero 2021"][0][" TOTAL "]);
       this.listado = jsonData["Fac. Enero 2021"];
+      this.allItems = jsonData["Fac. Enero 2021"];
       const dataString = JSON.stringify(jsonData);
       /*  document.getElementById("output").innerHTML = dataString
         .slice(0, 300)
@@ -52,10 +55,11 @@ export class AppComponent {
 
   generarCalculo() {
     console.log("generar calculo por camion");
-    this.listado.forEach(item => {
-      if (!this.camiones.includes(item["PLACA"])) {
+    this.cargasXCamion = [];
+    this.allItems.forEach(item => {
+      /* if (!this.camiones.includes(item["PLACA"])) {
         this.camiones.push(item["PLACA"]);
-      }
+      } */
       if (this.placa == item["PLACA"]) {
         this.cargasXCamion.push(item);
 
