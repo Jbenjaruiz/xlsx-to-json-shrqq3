@@ -7,7 +7,7 @@ import * as XLSX from "xlsx";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  name = " XLSX TO JSON Converter";
+  name = " XLSX TO JSON Converter Jose miguel";
   willDownload = false;
   listado: any[] = [];
   allItems: any[] = [];
@@ -16,6 +16,7 @@ export class AppComponent {
   camiones: any[] = [];
   placa: String;
   totalKms: number = 0;
+  galonesXMes: number = 0;
   constructor() {}
 
   onFileChange(ev) {
@@ -89,7 +90,7 @@ PRECIO: "17.49" */
     items.forEach(element => {
       totalGalones = totalGalones + parseFloat(element["GALONAJE"]);
     });
-
+    this.galonesXMes = totalGalones;
     console.log("total galones", totalGalones);
   }
 
