@@ -7,7 +7,7 @@ import * as XLSX from "xlsx";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  name = "Este es el convertidor XLSX TO JSON ";
+  name = " XLSX TO JSON Converter";
   willDownload = false;
   listado: any[] = [];
   allItems: any[] = [];
@@ -15,7 +15,7 @@ export class AppComponent {
   cargasXCamion: any[] = [];
   camiones: any[] = [];
   placa: String;
-  totalKms: String = "0 Kms recorridos ";
+  totalKms: number = 0;
   constructor() {}
 
   onFileChange(ev) {
@@ -35,11 +35,7 @@ export class AppComponent {
       this.listado = jsonData["Fac. Enero 2021"];
       this.allItems = jsonData["Fac. Enero 2021"];
       const dataString = JSON.stringify(jsonData);
-      /*  document.getElementById("output").innerHTML = dataString
-        .slice(0, 300)
-        .concat("..."); */
       this.setDownload(dataString);
-      //this.generarCalculo("C913BQF");
       this.getTruckList();
     };
     reader.readAsBinaryString(file);
@@ -53,21 +49,48 @@ export class AppComponent {
     });
   }
 
+  /* TOTAL : " Q239.26 "
+FECHA: "21-Jan"
+GALONAJE: "13.680"
+KILOMETRAJE: "51315"
+No. VALE: "8075"
+PLACA: "C428BSM"
+PRECIO: "17.49" */
+
   generarCalculo() {
-    console.log("generar calculo por camion");
+    //console.log("generar calculo por camion");
     this.cargasXCamion = [];
     this.allItems.forEach(item => {
-      /* if (!this.camiones.includes(item["PLACA"])) {
-        this.camiones.push(item["PLACA"]);
-      } */
       if (this.placa == item["PLACA"]) {
         this.cargasXCamion.push(item);
-
-        console.log("camion:", item);
       }
     });
-    console.log("camiones:", this.camiones);
+    console.log("items:", this.cargasXCamion);
     this.listado = this.cargasXCamion;
+    this.calcularKilometraje(this.cargasXCamion);
+    this.calcularGalonaje(this.cargasXCamion);
+  }
+
+  calcularKilometraje(items: any) {
+    let maxKm: number;
+    let minKm: number;
+    let kilometros: any[] = [];
+    items.forEach(element => {
+      kilometros.push(element["KILOMETRAJE"]);
+    });
+    maxKm = Math.max(...kilometros);
+    minKm = Math.min(...kilometros);
+    this.totalKms = maxKm - minKm;
+  }
+
+  calcularGalonaje(items) {
+    let totalGalones: number = 0.0;
+    let galones: any[] = [];
+    items.forEach(element => {
+      totalGalones = totalGalones + parseFloat(element["GALONAJE"]);
+    });
+
+    console.log("total galones", totalGalones);
   }
 
   setDownload(data) {
