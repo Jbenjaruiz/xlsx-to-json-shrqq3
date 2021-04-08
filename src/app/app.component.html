@@ -4,25 +4,27 @@
     Favor seleccionar el archivo a convertir
   </p>
 
-  <input  type="file" (change)="onFileChange($event)" />
+  <input class="form-control "  type="file" (change)="onFileChange($event)" />
 
   <!-- <div id="output"></div> -->
   <br>
   <!-- <div *ngIf="willDownload">
   <a id="download"> Download JSON File </a>
 </div> -->
-  <div class="form-group mt-3 ml-1">
+  <div class="form-group  ml-1">
     <label for="camiones">Seleccionar camión</label>
     <select id="camiones" (change)="generarCalculo()" [(ngModel)]='placa' class="form-control col-4" id="">
     <option *ngFor="let node of camiones"  [value]="node">{{node}}</option>
   </select>
   </div>
 
-  <div class="row">
+  <div class="row ml-2">
     <h5>
-      Kilometraje recorrido en el mes: {{totalKms}}
+      Kilometraje recorrido en el mes: {{totalKms}} Kms
     </h5>
-
+    <h5>
+      Galones consumidos: {{galonesXMes}} Gls
+    </h5>
   </div>
 
   <table class="table">
@@ -35,6 +37,7 @@
         <th scope="col">Kilometraje</th>
         <th scope="col">Precio</th>
         <th scope="col">Total</th>
+        <th scope="col">Kms x Galon</th>
       </tr>
     </thead>
     <tbody>
@@ -46,6 +49,7 @@
         <td>{{node.KILOMETRAJE}}</td>
         <td>{{node.PRECIO}}</td>
         <td>{{node[' TOTAL ']}}</td>
+        <td>{{node['kmsXGalon']}}</td>
       </tr>
     </tbody>
   </table>

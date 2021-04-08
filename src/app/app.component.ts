@@ -7,7 +7,7 @@ import * as XLSX from "xlsx";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  name = " XLSX TO JSON Converter Jose miguel";
+  name = " XLSX TO JSON Convertidor";
   willDownload = false;
   listado: any[] = [];
   allItems: any[] = [];
@@ -16,7 +16,7 @@ export class AppComponent {
   camiones: any[] = [];
   placa: String;
   totalKms: number = 0;
-  galonesXMes: number = 0;
+  galonesXMes: string = "0";
   constructor() {}
 
   onFileChange(ev) {
@@ -63,10 +63,17 @@ PRECIO: "17.49" */
     this.cargasXCamion = [];
     this.allItems.forEach(item => {
       if (this.placa == item["PLACA"]) {
+        // item.kmsXGalon = item
         this.cargasXCamion.push(item);
       }
     });
-    console.log("items:", this.cargasXCamion);
+
+    for (let i = 0; i < this.cargasXCamion.length; i++) {
+      this.cargasXCamion[i].kmsXGalon =
+        parseFloat(this.cargasXCamion[i + 1]["KILOMETRAJE"]) -
+        parseFloat(this.cargasXCamion[i]["KILOMETRAJE"]);
+    }
+
     this.listado = this.cargasXCamion;
     this.calcularKilometraje(this.cargasXCamion);
     this.calcularGalonaje(this.cargasXCamion);
@@ -86,11 +93,10 @@ PRECIO: "17.49" */
 
   calcularGalonaje(items) {
     let totalGalones: number = 0.0;
-    let galones: any[] = [];
     items.forEach(element => {
       totalGalones = totalGalones + parseFloat(element["GALONAJE"]);
     });
-    this.galonesXMes = totalGalones;
+    this.galonesXMes = totalGalones.toFixed(3);
     console.log("total galones", totalGalones);
   }
 
