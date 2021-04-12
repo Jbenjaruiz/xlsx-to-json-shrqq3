@@ -20,14 +20,17 @@
 
   <div class="row ml-2">
     <h5>
+      Promedios Mensuales
+    </h5>
+    <h6>
       Kilometraje recorrido en el mes: {{totalKms}} Kms
-    </h5>
-    <h5>
+    </h6>
+    <h6>
       Galones consumidos: {{galonesXMes}} Gls
-    </h5>
-    <h5>
+    </h6>
+    <h6>
       Kilometros por Galòn: {{kmsXGalonMensual}} Kms por Galon Diesel
-    </h5>
+    </h6>
   </div>
 
   <table class="table">
@@ -40,7 +43,8 @@
         <th scope="col">Kilometraje</th>
         <th scope="col">Precio</th>
         <th scope="col">Total</th>
-        <th scope="col">Kms x Galon</th>
+        <th scope="col">Kms Recorridos</th>
+        <th scope="col">Kms X Galon</th>
       </tr>
     </thead>
     <tbody>
@@ -52,6 +56,7 @@
         <td>{{node.KILOMETRAJE}}</td>
         <td>{{node.PRECIO}}</td>
         <td>{{node[' TOTAL ']}}</td>
+        <td>{{node.kmsXcarga}}</td>
         <td>{{node['kmsXGalon']}}</td>
       </tr>
     </tbody>

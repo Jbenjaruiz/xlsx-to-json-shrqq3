@@ -51,14 +51,6 @@ export class AppComponent {
     });
   }
 
-  /* TOTAL : " Q239.26 "
-FECHA: "21-Jan"
-GALONAJE: "13.680"
-KILOMETRAJE: "51315"
-No. VALE: "8075"
-PLACA: "C428BSM"
-PRECIO: "17.49" */
-
   generarCalculo() {
     //console.log("generar calculo por camion");
     this.cargasXCamion = [];
@@ -73,19 +65,21 @@ PRECIO: "17.49" */
   }
 
   setColKmsXGal(listResult: any): any {
-    
     let index1: number = 0;
     let index2: number = 1;
     listResult.forEach(object => {
       if (index2 < listResult.length) {
-        listResult[index2].kmsXGalon =
+        listResult[index2].kmsXcarga =
           parseFloat(listResult[index2]["KILOMETRAJE"]) -
           parseFloat(listResult[index1]["KILOMETRAJE"]);
+        listResult[index2].kmsXGalon =
+          listResult[index2]["kmsXcarga"] /
+          parseFloat(listResult[index1]["GALONAJE"].toFixed(3));
         index1++;
         index2++;
       }
     });
-    
+    console.log(listResult);
     this.cargasXCamion = listResult;
 
     this.listado = this.cargasXCamion;
