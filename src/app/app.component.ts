@@ -17,6 +17,7 @@ export class AppComponent {
   placa: String;
   totalKms: number = 0;
   galonesXMes: string = "0";
+  kmsXGalonMensual: string = "0";
   constructor() {}
 
   onFileChange(ev) {
@@ -68,11 +69,11 @@ PRECIO: "17.49" */
       }
     });
 
-    for (let i = 0; i < this.cargasXCamion.length; i++) {
+    /* for (let i = 0; i < this.cargasXCamion.length; i++) {
       this.cargasXCamion[i].kmsXGalon =
         parseFloat(this.cargasXCamion[i + 1]["KILOMETRAJE"]) -
         parseFloat(this.cargasXCamion[i]["KILOMETRAJE"]);
-    }
+    } */
 
     this.listado = this.cargasXCamion;
     this.calcularKilometraje(this.cargasXCamion);
@@ -93,11 +94,17 @@ PRECIO: "17.49" */
 
   calcularGalonaje(items) {
     let totalGalones: number = 0.0;
+    let promedioKmsXGalon: number = 0.0;
     items.forEach(element => {
       totalGalones = totalGalones + parseFloat(element["GALONAJE"]);
     });
     this.galonesXMes = totalGalones.toFixed(3);
-    console.log("total galones", totalGalones);
+    
+    console.log(` Kilometros ${this.totalKms} Galones ${totalGalones}` )
+    promedioKmsXGalon = this.totalKms / totalGalones;
+    //console.log("promedio", promedioKmsXGalon);
+    this.kmsXGalonMensual = promedioKmsXGalon.toFixed(3);
+    console.log("promedio", this.galonesXMes);
   }
 
   setDownload(data) {
