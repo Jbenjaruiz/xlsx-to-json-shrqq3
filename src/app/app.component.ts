@@ -72,9 +72,10 @@ export class AppComponent {
         listResult[index2].kmsXcarga =
           parseFloat(listResult[index2]["KILOMETRAJE"]) -
           parseFloat(listResult[index1]["KILOMETRAJE"]);
-        listResult[index2].kmsXGalon =
+        listResult[index2].kmsXGalon = (
           listResult[index2]["kmsXcarga"] /
-          parseFloat(listResult[index1]["GALONAJE"].toFixed(3));
+          parseFloat(listResult[index1]["GALONAJE"])
+        ).toFixed(3);
         index1++;
         index2++;
       }
