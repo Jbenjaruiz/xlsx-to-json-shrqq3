@@ -62,20 +62,34 @@ PRECIO: "17.49" */
   generarCalculo() {
     //console.log("generar calculo por camion");
     this.cargasXCamion = [];
+    let listResult: any = [];
     this.allItems.forEach(item => {
       if (this.placa == item["PLACA"]) {
         // item.kmsXGalon = item
-        this.cargasXCamion.push(item);
+        listResult.push(item);
       }
     });
+    this.setColKmsXGal(listResult);
+  }
 
-    /* for (let i = 0; i < this.cargasXCamion.length; i++) {
-      this.cargasXCamion[i].kmsXGalon =
-        parseFloat(this.cargasXCamion[i + 1]["KILOMETRAJE"]) -
-        parseFloat(this.cargasXCamion[i]["KILOMETRAJE"]);
-    } */
+  setColKmsXGal(listResult: any): any {
+    
+    let index1: number = 0;
+    let index2: number = 1;
+    listResult.forEach(object => {
+      if (index2 < listResult.length) {
+        listResult[index2].kmsXGalon =
+          parseFloat(listResult[index2]["KILOMETRAJE"]) -
+          parseFloat(listResult[index1]["KILOMETRAJE"]);
+        index1++;
+        index2++;
+      }
+    });
+    
+    this.cargasXCamion = listResult;
 
     this.listado = this.cargasXCamion;
+    console.log(this.cargasXCamion);
     this.calcularKilometraje(this.cargasXCamion);
     this.calcularGalonaje(this.cargasXCamion);
   }
@@ -99,8 +113,8 @@ PRECIO: "17.49" */
       totalGalones = totalGalones + parseFloat(element["GALONAJE"]);
     });
     this.galonesXMes = totalGalones.toFixed(3);
-    
-    console.log(` Kilometros ${this.totalKms} Galones ${totalGalones}` )
+
+    console.log(` Kilometros ${this.totalKms} Galones ${totalGalones}`);
     promedioKmsXGalon = this.totalKms / totalGalones;
     //console.log("promedio", promedioKmsXGalon);
     this.kmsXGalonMensual = promedioKmsXGalon.toFixed(3);
