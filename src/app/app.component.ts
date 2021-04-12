@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
+import { ExcellExporterService } from "./app.service";
 import * as XLSX from "xlsx";
+
 
 @Component({
   selector: "my-app",
@@ -18,7 +20,7 @@ export class AppComponent {
   totalKms: number = 0;
   galonesXMes: string = "0";
   kmsXGalonMensual: string = "0";
-  constructor() {}
+  constructor(private exportExcel: ExcellExporterService) {}
 
   onFileChange(ev) {
     let workBook = null;
@@ -114,6 +116,13 @@ export class AppComponent {
     //console.log("promedio", promedioKmsXGalon);
     this.kmsXGalonMensual = promedioKmsXGalon.toFixed(3);
     console.log("promedio", this.galonesXMes);
+  }
+
+  downloadReport(){
+    let element = document.getElementById("reporteXlsx");
+    let name = "Reporte"
+    
+    this.exportExcel.exportTableToExcel(element, name);
   }
 
   setDownload(data) {

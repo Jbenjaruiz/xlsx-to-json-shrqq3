@@ -24,25 +24,23 @@
     </h5>
   </div>
   <div class="row ml-2">
-    <h6>
-      Kilometraje recorrido en el mes: {{totalKms}} Kms
-    </h6>
-  </div>
-  <div class="row ml-2">
-    <h6>
+    <div class="col-md-6">
+      <h6>
+        Kilometraje recorrido en el mes: {{totalKms}} Kms
+        <br>
       Galones consumidos: {{galonesXMes}} Gls
-    </h6>
-  </div>
-  <div class="row ml-2">
-    <h6>
+        <br>
       Kilometros por Galòn: {{kmsXGalonMensual}} Kms por Galon Diesel
-    </h6>
+      </h6>
+    </div>
+    <div class="col-md-6 align-self-end">
+      <button type="button" (click)="downloadReport()" class="btn btn-primary ml-1 mt-2 mb-2">Descargar <i class="fas fa-file-download"></i></button>
+    </div>
   </div>
 
-  <table class="table">
+  <table class="table" id="reporteXlsx">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Galonaje</th>
         <th scope="col">Fecha</th>
         <th scope="col">Placa</th>
@@ -54,8 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let node of listado; let i = index">
-        <th>{{i}}</th>
+      <tr *ngFor="let node of listado">
         <td>{{node.GALONAJE}}</td>
         <td>{{node.FECHA}}</td>
         <td>{{node.PLACA}}</td>

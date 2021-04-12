@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-//import * as FileSaver from 'file-saver'
+import * as moment from "moment";
+import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 const EXECL_TYPE =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=UTF-8";
@@ -27,6 +28,6 @@ export class ExcellExporterService {
 
   private saveAsExcel(buffer: any, fileName: string) {
     const data: Blob = new Blob([buffer], { type: EXECL_TYPE });
-    // FileSaver.saveAs(data, fileName + EXCEL_EXT);
+    FileSaver.saveAs(data, fileName + EXCEL_EXT);
   }
 }
